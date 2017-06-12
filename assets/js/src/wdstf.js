@@ -29,6 +29,10 @@ $( document ).ready( function() {
 
   var aData = getLyricData();
 
+  var aImages = [];
+
+  preloadImages( aImages, aData );
+
   var iCounter;
   var currentTime;
 
@@ -51,13 +55,13 @@ $( document ).ready( function() {
         $.each( aData, function( index, meta ){
           var thisInfo = aData[ index ];
           if( thisInfo ){
-            if( thisInfo.t === msFormatted ){
+            if( thisInfo.t <= msFormatted ){
               var itemID = getID( thisInfo.value );
-
-              insertItemDetail( thisInfo, itemID, $detail );
-              insertTagCloud( thisInfo, itemID, $tagCloud );
-
-              aData.splice( index, 1 );
+              if ( $( '#' + itemID ).length === 0 ) {
+                insertItemDetail( thisInfo, itemID, $detail );
+                insertTagCloud( thisInfo, itemID, $tagCloud );
+                aData.splice( index, 1 );
+              }
             }
           }
         } );
@@ -112,6 +116,13 @@ $( document ).ready( function() {
 
 
 } );
+
+function preloadImages( imageArray, aData ) {
+  for( var i = 0; i < aData.length; i++ ){
+    imageArray[ i ] = new Image();
+    imageArray[ i ].src = '/assets/images/' + aData[ i ].image;
+  }
+}
 
 function updateProgress( currentTime, duration ){
   var t = currentTime;
@@ -171,6 +182,7 @@ function log( s ){
 function getID( string ){
   var str = string;
   str = str.replace(/\s+/g, '_').toLowerCase();
+  str = str.replace(/&rsquo;/g, '_');
   return str;
 }
 
@@ -559,7 +571,7 @@ function getLyricData(){
       't': '01:43:25',
       'value': 'Peyton Place',
       'url': 'https://en.wikipedia.org/wiki/Peyton_Place_(novel)',
-      'excerpt': 'Peyton Place is a 1956 novel by Grace Metalious. The novel describes how three women are forced to come to terms with their identity, both as women and as sexual beings, in a small, conservative, gossipy New England town, with recurring themes of hypocrisy, social inequities and class privilege in a tale that includes incest, abortion, adultery, lust and murder. It sold 60 000 copies within the first ten days of its release and remained on the New York Times best seller list for 59 weeks.',
+      'excerpt': 'Peyton Place is a 1956 novel by Grace Metalious. The novel describes how three women are forced to come to terms with their identity, both as women and as sexual beings, in a small, conservative, gossipy New England town, with recurring themes of hypocrisy, social inequities and class privilege in a tale that includes incest, abortion, adultery, lust and murder. It sold 60,000 copies within the first ten days of its release and remained on the New York Times best seller list for 59 weeks.',
       'image': 'peyton_place.jpg'
     },
     {
@@ -1021,7 +1033,7 @@ function getLyricData(){
       't': '03:38:38',
       'value': 'Rock and Roller Cola Wars',
       'url': 'https://en.wikipedia.org/wiki/Cola_wars',
-      'excerpt': 'The cola wars are a series of mutually-targeted television advertisements and marketing campaigns since the 1980s between two long-time rival soft drink producers, The Coca-Cola Company and PepsiCo. The battle between the two dominant brands in the United States intensified to such an extent that the term “Cola wars” was used to describe the feud. Each employed numerous advertising and marketing campaigns to outdo the other.',
+      'excerpt': 'The cola wars are a series of mutually-targeted television advertisements and marketing campaigns since the 1980s between two long-time rival soft drink producers, The Coca-Cola Company and PepsiCo. The battle between the two dominant brands in the United States intensified to such an extent that the term &ldquo;Cola wars&rdquo; was used to describe the feud. Each employed numerous advertising and marketing campaigns to outdo the other.',
       'image': 'cola_wars.jpg'
     }
   ];
