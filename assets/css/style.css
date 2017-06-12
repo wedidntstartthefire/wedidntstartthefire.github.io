@@ -22,6 +22,10 @@ video {
   visibility: hidden;
 }
 
+.tagItem {
+  cursor: pointer;
+}
+
 #seek, #duration {
   display: none;
 }

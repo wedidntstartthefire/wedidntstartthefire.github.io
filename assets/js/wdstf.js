@@ -74,7 +74,7 @@ $( document ).ready( function() {
   } );
 
   // cheat for dev
-  // sound.seek( 33 );
+  sound.seek( 31 );
 
   $playBtn.on( 'click', function( e ){
     if( !sound.playing() ){
@@ -133,7 +133,7 @@ function insertItemDetail( item, target ){
         <img class="img-responsive" src="/assets/images/${item.image}" alt="${item.value}">
       </div>
       <div class="col-lg-9 itemData">
-        <h1>${item.value}</h1>
+        <h1 data-id="#${getID( item.value )}" class="tagItem">${item.value}</h1>
         <p class="excerpt">${item.excerpt}</p>
         <p class="wikiLink"><a href="${item.url}" target="_blank">View on wikipedia</a></p>
       </div>
@@ -214,7 +214,7 @@ function getLyricData(){
       'excerpt': 'The Chinese Civil War was fought between forces loyal to the Kuomintang (KMT)-led government of the Republic of China, and forces loyal to the Communist Party of China (CPC).[9] The civil war began in August 1927, with Generalissimo Chiang Kai-shek&rsquo;s Northern Expedition, and essentially ended when major hostilities ceased in 1950.[10] It can generally be divided into two stages; the first being from 1927 to 1937, and the second being from 1946 to 1950 with the Second Sino-Japanese War separating them. The war was a major turning point in modern Chinese history, with the CPC gaining control of almost the entirety of Mainland China, establishing the People&rsquo;s Republic of China (PRC) to replace the KMT&rsquo;s Republic of China (ROC). It also caused a lasting political and military standoff between the two sides of the Taiwan Strait, with the ROC in Taiwan and the PRC in mainland China both officially claiming to be the legitimate government of all of China.'
     },
     {
-      't': '00:35:50',
+      't': '00:35:75',
       'value': 'Johnny Ray',
       'image': 'johnny_ray.png',
       'year': '1949',
@@ -262,7 +262,7 @@ function getLyricData(){
       'image': 'richard_nixon.jpg'
     },
     {
-      't': '00:41:15',
+      't': '00:41:65',
       'value': 'Studebaker',
       'year': '1950',
       'url': 'https://en.wikipedia.org/wiki/Studebaker',
@@ -270,7 +270,7 @@ function getLyricData(){
       'image': 'studebaker.gif'
     },
     {
-      't': '00:42:15',
+      't': '00:42:81',
       'value': 'Television',
       'year': '1950',
       'url': 'https://en.wikipedia.org/wiki/Television',
@@ -316,28 +316,28 @@ function getLyricData(){
       'image': 'h_bomb.jpg'
     },
     {
-      't': '00:54:54',
+      't': '00:54:75',
       'value': 'Sugar Ray',
       'url': 'https://en.wikipedia.org/wiki/Sugar_Ray_Robinson',
       'excerpt': 'Sugar Ray Robinson (born Walker Smith Jr.; May 3, 1921 - April 12, 1989) was an American professional boxer. Frequently cited as the greatest boxer of all time, Robinson&rsquo;s performances in the welterweight and middleweight divisions prompted sportswriters to create "pound for pound" rankings, where they compared fighters regardless of weight. He was inducted into the International Boxing Hall of Fame in 1990.',
       'image': 'sugar_ray.jpeg'
     },
     {
-      't': '00:55:25',
+      't': '00:55:50',
       'value': 'Panmunjom',
       'url': 'https://en.wikipedia.org/wiki/Panmunjom',
       'excerpt': 'Panmunjom, now located in North Hwanghae Province, was a village just north of the de facto border between North and South Korea, where the 1953 Korean Armistice Agreement that paused the Korean War was signed. The building where the armistice was signed still stands. Its name is often used as a metonym for the nearby Joint Security Area (JSA), where discussions between North and South Korea still take place in blue buildings that straddle the Military Demarcation Line. As such, it is considered one of the last vestiges of the Cold War.',
       'image': 'panmunjon.png'
     },
     {
-      't': '00:55:95',
+      't': '00:56:60',
       'value': 'Brando',
       'url': 'https://en.wikipedia.org/wiki/Marlon_Brando',
       'excerpt': 'Marlon Brando, Jr. (April 3, 1924 - July 1, 2004) was an American actor, film director and political activist. He is credited with bringing realism to film acting. He helped to popularize the Stanislavski system of acting, studying with Stella Adler in the 1940s. Brando is widely known for his Academy Award-winning performances as Terry Malloy in On the Waterfront (1954) and Vito Corleone in The Godfather (1972), as well as his performances in A Streetcar Named Desire (1951), Viva Zapata! (1952), Julius Caesar (1953), The Wild One (1953), Guys and Dolls (1955), Sayonara (1957), Reflections in a Golden Eye (1967), Last Tango in Paris (1972), and Apocalypse Now (1979). Brando was also an activist for many causes, notably the Civil Rights Movement and various Native American movements.',
       'image': 'brando.jpg'
     },
     {
-      't': '00:56:85',
+      't': '00:57:20',
       'value': 'The King and I',
       'url': 'https://en.wikipedia.org/wiki/The_King_and_I',
       'excerpt': 'The King and I is the fifth musical by the team of composer Richard Rodgers and dramatist Oscar Hammerstein II. It is based on Margaret Landon&rsquo;s novel, Anna and the King of Siam (1944), which is in turn derived from the memoirs of Anna Leonowens, governess to the children of King Mongkut of Siam in the early 1860s. The musical&rsquo;s plot relates the experiences of Anna, a British schoolteacher hired as part of the King&rsquo;s drive to modernize his country. The relationship between the King and Anna is marked by conflict through much of the piece, as well as by a love to which neither can admit. The musical premiered on March 29, 1951, at Broadway&rsquo;s St. James Theatre. It ran for nearly three years, making it the fourth longest-running Broadway musical in history at the time, and has had many tours and revivals.',
@@ -358,7 +358,7 @@ function getLyricData(){
       'image': 'eisenhower.jpg'
     },
     {
-      't': '01:00:35',
+      't': '01:00:50',
       'value': 'Vaccine',
       'url': 'https://en.wikipedia.org/wiki/Vaccine',
       'excerpt': 'A vaccine is a biological preparation that provides active acquired immunity to a particular disease. A vaccine typically contains an agent that resembles a disease-causing microorganism and is often made from weakened or killed forms of the microbe, its toxins or one of its surface proteins. The agent stimulates the body&rsquo;s immune system to recognize the agent as a threat, destroy it, and recognize and destroy any of these microorganisms that it later encounters. Vaccines can be prophylactic (example: to prevent or ameliorate the effects of a future infection by a natural or "wild" pathogen), or therapeutic (e.g., vaccines against cancer are being investigated)',
@@ -393,7 +393,7 @@ function getLyricData(){
       'image': 'santayana.jpg'
     },
     {
-      't': '01:19:34',
+      't': '01:19:55',
       'value': 'Joseph Stalin',
       'url': 'https://en.wikipedia.org/wiki/Joseph_Stalin',
       'excerpt': 'Joseph Vissarionovich Stalin (18 December 1878 - 5 March 1953) was a Soviet revolutionary, politician and political theorist. He governed the Soviet Union from the mid-1920s until his death in 1953. In this capacity, he served as the Premier of the Soviet Union from 1941 to 1953 and as General Secretary of the Central Committee of the Communist Party of the Soviet Union from 1922 to 1952. Ideologically a Marxist and a Leninist, he helped to formalise these ideas as Marxism-Leninism while his own policies and theories became known as Stalinism.',
@@ -421,14 +421,14 @@ function getLyricData(){
       'image': 'prokofiev.jpg'
     },
     {
-      't': '01:23:10',
+      't': '01:23:20',
       'value': 'Rockefeller',
       'url': 'https://en.wikipedia.org/wiki/Winthrop_Rockefeller',
       'excerpt': 'Winthrop Rockefeller (May 1, 1912 - February 22, 1973) was an American politician and philanthropist, who served as the first Republican Governor of Arkansas since Reconstruction. He was a third-generation member of the Rockefeller family.',
       'image': 'rockefeller.jpg'
     },
     {
-      't': '01:23:65',
+      't': '01:23:90',
       'value': 'Campanella',
       'url': 'https://en.wikipedia.org/wiki/Roy_Campanella',
       'excerpt': 'Roy Campanella (November 19, 1921 - June 26, 1993), nicknamed "Campy", was an American baseball player, primarily as a catcher. The Philadelphia native played for the Negro leagues and Mexican League for several seasons before entering the minor leagues in 1946. He made his Major League Baseball (MLB) debut in 1948. His playing career ended in 1958 when he was paralyzed by an automobile accident. Widely considered to be one of the greatest catchers in the history of the game, Campanella played for the Brooklyn Dodgers in the 1940s and 1950s. After he retired as a player, Campanella held positions in scouting and community relations with the Dodgers. He was inducted into the Baseball Hall of Fame in 1969.',
@@ -463,7 +463,7 @@ function getLyricData(){
       'image': 'toscanini.jpg'
     },
     {
-      't': '01:28:75',
+      't': '01:29:10',
       'value': 'Dacron',
       'url': 'https://en.wikipedia.org/wiki/Polyethylene_terephthalate',
       'excerpt': 'Polyethylene terephthalate (sometimes written poly(ethylene terephthalate)), commonly abbreviated PET, PETE, or the obsolete PETP or PET-P, is the most common thermoplastic polymer resin of the polyester family and is used in fibers for clothing, containers for liquids and foods, thermoforming for manufacturing, and in combination with glass fiber for engineering resins. It may also be referred to by the brand name Dacron; in Britain, Terylene; or, in Russia and the former Soviet Union, Lavsan.',
@@ -484,7 +484,7 @@ function getLyricData(){
       'image': 'rock_around_the_clock.jpg'
     },
     {
-      't': '01:32:10',
+      't': '01:32:75',
       'value': 'Einstein',
       'url': 'https://en.wikipedia.org/wiki/Albert_Einstein',
       'excerpt': 'Albert Einstein (14 March 1879 - 18 April 1955) was a German-born theoretical physicist. He developed the theory of relativity, one of the two pillars of modern physics (alongside quantum mechanics). Einstein&rsquo;s work is also known for its influence on the philosophy of science. Einstein is best known by the general public for his mass–energy equivalence formula E = mc2 (which has been dubbed "the world&rsquo;s most famous equation"). He received the 1921 Nobel Prize in Physics "for his services to theoretical physics, and especially for his discovery of the law of the photoelectric effect", a pivotal step in the evolution of quantum theory.',
@@ -498,7 +498,7 @@ function getLyricData(){
       'image': 'james_dean.jpg'
     },
     {
-      't': '01:34:13',
+      't': '01:34:30',
       'value': 'Brooklyn&rsquo;s got a winning team',
       'url': 'https://en.wikipedia.org/wiki/History_of_the_Brooklyn_Dodgers',
       'excerpt': 'The Brooklyn Dodgers were an American baseball team that was active in the major leagues from 1884 until 1957, after which it moved to Los Angeles, where it continued its history as the Los Angeles Dodgers. The team&rsquo;s name derived from the reputed skill of Brooklyn residents at evading the city&rsquo;s trolley streetcar network. The Dodgers played in two stadiums in South Brooklyn, each named Washington Park, and at Eastern Park in the neighborhood of Brownsville before moving to Ebbets Field in the neighborhood of Flatbush in 1913. The team is noted for signing Jackie Robinson in 1947 as the first black player in the modern major leagues.',
@@ -533,21 +533,21 @@ function getLyricData(){
       'image': 'disneyland.jpg'
     },
     {
-      't': '01:39:35',
+      't': '01:39:50',
       'value': 'Bardot',
       'url': 'https://en.wikipedia.org/wiki/Brigitte_Bardot',
       'excerpt': 'Brigitte Anne-Marie Bardot (born 28 September 1934) is a French actress, singer and fashion model, who later became an animal rights activist. She was one of the best known sex symbols of the 1950s and 1960s and was widely referred to by her initials, B.B.',
       'image': 'bardot.jpg'
     },
     {
-      't': '01:39:83',
+      't': '01:39:90',
       'value': 'Budapest',
       'url': 'https://en.wikipedia.org/wiki/Hungarian_Revolution_of_1956',
       'excerpt': 'The Hungarian Revolution of 1956 or the Hungarian Uprising of 1956 was a nationwide revolt against the government of the Hungarian People&rsquo;s Republic and its Soviet-imposed policies, lasting from 23 October until 10 November 1956. Though leaderless when it first began, it was the first major threat to Soviet control since the USSR&rsquo;s forces drove Nazi Germany from its territory at the end of World War II. The revolt began as a student demonstration, which attracted thousands as they marched through central Budapest to the Parliament building, calling out on the streets using a van with loudspeakers. A student delegation, entering the radio building to try to broadcast the students&rsquo; demands, was detained. When the delegation&rsquo;s release was demanded by the demonstrators outside, they were fired upon by the State Security Police from within the building. One student died and was wrapped in a flag and held above the crowd. This was the start of the revolution. As the news spread, disorder and violence erupted throughout the capital.',
       'image': 'budapest.jpg'
     },
     {
-      't': '01:40:75',
+      't': '01:40:95',
       'value': 'Alabama',
       'url': 'https://en.wikipedia.org/wiki/Rosa_Parks',
       'excerpt': 'Rosa Louise McCauley Parks (February 4, 1913 - October 24, 2005) was an activist in the Civil Rights Movement, whom the United States Congress called "the first lady of civil rights" and "the mother of the freedom movement". On December 1, 1955, in Montgomery, Alabama, Parks refused to obey bus driver James F. Blake&rsquo;s order to give up her seat in the colored section to a white passenger, after the white section was filled. Parks was not the first person to resist bus segregation. Others had taken similar steps, including Bayard Rustin in 1942, Irene Morgan in 1946, Lillie Mae Bradford in 1951, Sarah Louise Keys in 1952, and the members of the ultimately successful Browder v. Gayle 1956 lawsuit (Claudette Colvin, Aurelia Browder, Susie McDonald, and Mary Louise Smith) who were arrested in Montgomery for not giving up their bus seats months before Parks. NAACP organizers believed that Parks was the best candidate for seeing through a court challenge after her arrest for civil disobedience in violating Alabama segregation laws, although eventually her case became bogged down in the state courts while the Browder v. Gayle case succeeded.',
@@ -589,14 +589,14 @@ function getLyricData(){
       'image': 'little_rock.jpg'
     },
     {
-      't': '01:59:73',
+      't': '02:00:25',
       'value': 'Pasternak',
       'url': 'https://en.wikipedia.org/wiki/Boris_Pasternak',
       'excerpt': 'Boris Leonidovich Pasternak (10 February 1890 - 30 May 1960) was a Soviet Russian poet, novelist, and literary translator. In his native Russian, Pasternak&rsquo;s first book of poems, My Sister, Life (1917), is one of the most influential collections ever published in the Russian language. Pasternak&rsquo;s translations of stage plays by Goethe, Schiller, Calderón and Shakespeare remain very popular with Russian audiences. Outside Russia, Pasternak is best known as the author of Doctor Zhivago (1957), a novel which takes place between the Russian Revolution of 1905 and the First World War. Doctor Zhivago was rejected for publication in the USSR. At the instigation of Giangiacomo Feltrinelli, Doctor Zhivago was smuggled to Milan and published in 1957 and distributed with the help of the CIA in the rest of Europe. Pasternak was awarded the Nobel Prize for Literature in 1958, an event which both humiliated and enraged the Communist Party of the Soviet Union, which forced him to decline the prize, though his descendants were later to accept it in his name in 1988.',
       'image': 'pasternak.jpg'
     },
     {
-      't': '02:00:60',
+      't': '02:00:90',
       'value': 'Mickey Mantle',
       'url': 'https://en.wikipedia.org/wiki/Mickey_Mantle',
       'excerpt': 'Mickey Charles Mantle (October 20, 1931 - August 13, 1995), nicknamed The Commerce Comet and The Mick, was an American professional baseball player. Mantle played his entire Major League Baseball (MLB) career with the New York Yankees as a center fielder and first baseman, from 1951 through 1968. Mantle was one of the best players and sluggers, and is regarded by many as the greatest switch hitter in baseball history. Mantle was inducted into the National Baseball Hall of Fame in 1974 and was elected to the Major League Baseball All-Century Team in 1999.',
@@ -631,14 +631,14 @@ function getLyricData(){
       'image': 'bridge_on_the_river_kwai.jpg'
     },
     {
-      't': '02:05:50',
+      't': '02:06:20',
       'value': 'Lebanon',
       'url': 'https://en.wikipedia.org/wiki/1958_Lebanon_crisis',
       'excerpt': 'The 1958 Lebanon crisis was a Lebanese political crisis caused by political and religious tensions in the country that included a U.S. military intervention. The intervention lasted around three months until President Camille Chamoun, who had requested the assistance, completed his term as president of Lebanon. American and Lebanese government forces successfully occupied the port and international airport of Beirut. With the crisis over, the United States withdrew.',
       'image': 'lebanon.jpg'
     },
     {
-      't': '02:06:25',
+      't': '02:06:60',
       'value': 'Charles de Gaulle',
       'url': 'https://en.wikipedia.org/wiki/Charles_de_Gaulle',
       'excerpt': 'Charles Andre Joseph Marie de Gaulle (22 November 1890 - 9 November 1970) was a French general and statesman. He was the leader of Free France (1940-44) and the head of the Provisional Government of the French Republic (1944-46). In 1958, he founded the Fifth Republic and was elected as the President of France, a position he held until his resignation in 1969. He was the dominant figure of France during the Cold War era and his memory continues to influence French politics.',
@@ -680,7 +680,7 @@ function getLyricData(){
       'image': 'ben_hur.jpg'
     },
     {
-      't': '02:17:11',
+      't': '02:17:40',
       'value': 'Space Monkey',
       'url': 'https://en.wikipedia.org/wiki/Monkeys_and_apes_in_space',
       'excerpt': 'Before humans went into space, several other animals were launched into space, including numerous other primates, so that scientists could investigate the biological effects of space travel. The United States launched flights containing primate cargo primarily between 1948-1961 with one flight in 1969 and one in 1985. France launched two monkey-carrying flights in 1967. The Soviet Union and Russia launched monkeys between 1983 and 1996. Most primates were anesthetized before lift-off. Overall thirty-two monkeys flew in the space program; none flew more than once. Numerous back-up monkeys also went through the programs but never flew. Monkeys and apes from several species were used, including rhesus monkeys, cynomolgus monkeys, squirrel monkeys, pig-tailed macaques, and chimpanzees.',
@@ -694,7 +694,7 @@ function getLyricData(){
       'image': 'mafia.jpg'
     },
     {
-      't': '02:18:80',
+      't': '02:19:20',
       'value': 'Hula Hoops',
       'url': 'https://en.wikipedia.org/wiki/Hula_hoop',
       'excerpt': 'A hula hoop is a toy hoop that is twirled around the waist, limbs or neck. The modern hula hoop was invented in 1958 by Arthur K. "Spud" Melin and Richard Knerr, but children and adults around the world have played with hoops, twirling, rolling and throwing them throughout history. Hula hoops for children generally measure approximately 71 centimetres (28 in) in diameter, and those for adults around 1.02 metres (40 in). Traditional materials for hoops include willow, rattan (a flexible and strong vine), grapevines and stiff grasses. Today, they are usually made of plastic tubing.',
@@ -708,7 +708,7 @@ function getLyricData(){
       'image': 'castro.jpg'
     },
     {
-      't': '02:20:40',
+      't': '02:20:75',
       'value': 'Edsel is a no-go',
       'url': 'https://en.wikipedia.org/wiki/Edsel',
       'excerpt': 'The Edsel was an automobile marque that was planned, developed, and manufactured by the Ford Motor Company for model years 1958-1960. With the Edsel, Ford had expected to make significant inroads into the market share of both General Motors and Chrysler and close the gap between itself and GM in the domestic American automotive market. Ford invested heavily in a yearlong teaser campaign leading consumers to believe that the Edsel was the car of the future – an expectation it failed to meet. After it was unveiled to the public, it was considered to be unattractive, overpriced, and overhyped. The Edsel never gained popularity with contemporary American car buyers and sold poorly. The Ford Motor Company lost $250 million on the Edsel&rsquo;s development, manufacturing, and marketing. The very name "Edsel" became a popular symbol for a commercial failure.',
@@ -813,7 +813,7 @@ function getLyricData(){
       'image': 'lawrence_of_arabia.jpg'
     },
     {
-      't': '02:50:23',
+      't': '02:50:80',
       'value': 'British Beatle-mania',
       'url': 'https://en.wikipedia.org/wiki/Beatlemania',
       'excerpt': 'Beatlemania was the intense fan frenzy directed towards the English rock band the Beatles in the 1960s. The phenomenon began in 1963 and continued past the group&rsquo;s break-up in 1970, despite the band ceasing public performances in 1966. The use of the word mania to describe fandom predates the Beatles by more than 100 years. It has continued to be used to describe the popularity of musical acts, as well as popularity of public figures and trends outside the music industry.',
@@ -841,21 +841,21 @@ function getLyricData(){
       'image': 'liston_beats_patterson.jpg'
     },
     {
-      't': '02:55:24',
+      't': '02:55:80',
       'value': 'Pope Paul',
       'url': 'https://en.wikipedia.org/wiki/Pope_Paul_VI',
       'excerpt': 'Pope Paul VI (born Giovanni Battista Enrico Antonio Maria Montini, 26 September 1897 – 6 August 1978), reigned as Pope from 21 June 1963 to his death in 1978. Succeeding Pope John XXIII, he continued the Second Vatican Council which he closed in 1965, implementing its numerous reforms, and fostered improved ecumenical relations with Eastern Orthodox and Protestants, which resulted in many historic meetings and agreements. Montini served in the Vatican&rsquo;s Secretariat of State from 1922 to 1954. While in the Secretariat of State, Montini and Domenico Tardini were considered as the closest and most influential colleagues of Pope Pius XII, who in 1954 named him Archbishop of Milan, the largest Italian diocese. Montini later became the Secretary of the Italian Bishops Conference. John XXIII elevated him to the College of Cardinals in 1958, and after the death of John XXIII, Montini was considered one of his most likely successors',
       'image': 'pope_paul.jpg'
     },
     {
-      't': '02:55:99',
+      't': '02:56:65',
       'value': 'Malcolm X',
       'url': 'https://en.wikipedia.org/wiki/Malcolm_X',
       'excerpt': 'Malcolm X (May 19, 1925 – February 21, 1965), born Malcolm Little and later also known as el-Hajj Malik el-Shabazz, was an African-American Muslim minister and human rights activist. To his admirers he was a courageous advocate for the rights of blacks, a man who indicted white America in the harshest terms for its crimes against black Americans; detractors accused him of preaching racism and violence. He has been called one of the greatest and most influential African Americans in history. By March 1964, Malcolm X had grown disillusioned with the Nation of Islam and its leader Elijah Muhammad. Expressing many regrets about his time with them, which he had come to regard as largely wasted, he embraced Sunni Islam. After a period of travel in Africa and the Middle East, which included completing the Hajj, he repudiated the Nation of Islam, disavowed racism and founded Muslim Mosque, Inc. and the Organization of Afro-American Unity. He continued to emphasize Pan-Africanism, black self-determination, and black self-defense. In February 1965, he was assassinated by three members of the Nation of Islam.',
       'image': 'malcolm_x.jpg'
     },
     {
-      't': '02:56:89',
+      't': '02:57:50',
       'value': 'British Politician sex',
       'url': 'https://en.wikipedia.org/wiki/Profumo_affair',
       'excerpt': 'The Profumo affair was a British political scandal that originated with a brief sexual relationship in 1961 between John Profumo, the Secretary of State for War in Harold Macmillan&rsquo;s government, and Christine Keeler, a 19-year-old would-be model. In March 1963, Profumo denied any impropriety in a personal statement[n 1] to the House of Commons, but was forced to admit the truth a few weeks later. He resigned from the government and from Parliament. The repercussions of the affair severely damaged Macmillan&rsquo;s self-confidence, and he resigned as prime minister on health grounds in October 1963. His Conservative Party was marked by the scandal, which may have contributed to its defeat by Labour in the 1964 general election.',
@@ -995,7 +995,7 @@ function getLyricData(){
       'image': 'homeless_vets.jpg'
     },
     {
-      't': '03:33:32',
+      't': '03:33:75',
       'value': 'AIDS',
       'url': 'https://en.wikipedia.org/wiki/HIV/AIDS',
       'excerpt': 'AIDS was first clinically observed in 1981 in the United States.[36] The initial cases were a cluster of injecting drug users and homosexual men with no known cause of impaired immunity who showed symptoms of Pneumocystis carinii pneumonia (PCP), a rare opportunistic infection that was known to occur in people with very compromised immune systems.[212] Soon thereafter, an unexpected number of homosexual men developed a previously rare skin cancer called Kaposi&rsquo;s sarcoma (KS). Many more cases of PCP and KS emerged, alerting U.S. Centers for Disease Control and Prevention (CDC) and a CDC task force was formed to monitor the outbreak.',
