@@ -52,9 +52,10 @@ $( document ).ready( function() {
           var thisInfo = aData[ index ];
           if( thisInfo ){
             if( thisInfo.t === msFormatted ){
+              var itemID = getID( thisInfo.value );
 
-              insertItemDetail( thisInfo, $detail );
-              insertTagCloud( thisInfo, $tagCloud );
+              insertItemDetail( thisInfo, itemID, $detail );
+              insertTagCloud( thisInfo, itemID, $tagCloud );
 
               aData.splice( index, 1 );
             }
@@ -74,7 +75,7 @@ $( document ).ready( function() {
   } );
 
   // cheat for dev
-  sound.seek( 31 );
+  // sound.seek( 31 );
 
   $playBtn.on( 'click', function( e ){
     if( !sound.playing() ){
@@ -98,13 +99,10 @@ $( document ).ready( function() {
 
   $( 'body' ).on( 'click', '.tagItem', function ( e ){
 
-    var $element = $( `${$( this ).data( 'id' )}` );
+    var $element = $( $( this ).data( 'id' ) );
     var $dataEl = $( '.itemData', $element );
 
-    var strHTML = `
-      <p>${$( '.excerpt', $dataEl ).html()}</p>
-      <p>${$( '.wikiLink', $dataEl ).html()}</p>
-    `;
+    var strHTML = '<p>' + $( '.excerpt', $dataEl ).html() + '</p><p>' + $( '.wikiLink', $dataEl ).html() + '</p>';
 
     $( '.modal-title', '.modal' ).html( $( 'h1', $dataEl ).html() );
     $( '.modal-body', '.modal' ).html( strHTML );
@@ -122,23 +120,13 @@ function updateProgress( currentTime, duration ){
   $( '.progress-bar' ).css( 'width', pct + '%' );
 }
 
-function insertTagCloud( item, target ){
-  $( 'ul', target ).append( `<li><a class="tagItem" data-id="#${getID( item.value )}">${item.value}</a></li>` );
+function insertTagCloud( item, id, target ){
+  $( 'ul', target ).append( '<li><a class="tagItem" data-id="#' + id + '">' + item.value + '</a></li>' );
 }
 
-function insertItemDetail( item, target ){
-  var strDetail = `
-    <div id="${getID( item.value )}" class="row detailItem">
-      <div class="col-lg-1 col-lg-offset-1 itemImage">
-        <img class="img-responsive" src="/assets/images/${item.image}" alt="${item.value}">
-      </div>
-      <div class="col-lg-9 itemData">
-        <h1 data-id="#${getID( item.value )}" class="tagItem">${item.value}</h1>
-        <p class="excerpt">${item.excerpt}</p>
-        <p class="wikiLink"><a href="${item.url}" target="_blank">View on wikipedia</a></p>
-      </div>
-    </div>
-  `;
+function insertItemDetail( item, id, target ){
+  var itemID = id;
+  var strDetail = '<div id="' + itemID + '" class="row detailItem"><div class="col-lg-1 col-lg-offset-1 itemImage"><img class="img-responsive" src="/assets/images/' + item.image + '" alt="' + item.value + '"></div><div class="col-lg-9 itemData"><h1 data-id="#' + itemID + '" class="tagItem">' + item.value + '</h1><p class="excerpt">' + item.excerpt + '</p><p class="wikiLink"><a href="' + item.url + '" target="_blank">View on wikipedia</a></p></div></div>';
   $( target ).prepend( strDetail );
 }
 
@@ -211,7 +199,7 @@ function getLyricData(){
       'year': '1949',
       'image': 'red_china.png',
       'url': 'https://en.wikipedia.org/wiki/Chinese_Civil_War',
-      'excerpt': 'The Chinese Civil War was fought between forces loyal to the Kuomintang (KMT)-led government of the Republic of China, and forces loyal to the Communist Party of China (CPC).[9] The civil war began in August 1927, with Generalissimo Chiang Kai-shek&rsquo;s Northern Expedition, and essentially ended when major hostilities ceased in 1950.[10] It can generally be divided into two stages; the first being from 1927 to 1937, and the second being from 1946 to 1950 with the Second Sino-Japanese War separating them. The war was a major turning point in modern Chinese history, with the CPC gaining control of almost the entirety of Mainland China, establishing the People&rsquo;s Republic of China (PRC) to replace the KMT&rsquo;s Republic of China (ROC). It also caused a lasting political and military standoff between the two sides of the Taiwan Strait, with the ROC in Taiwan and the PRC in mainland China both officially claiming to be the legitimate government of all of China.'
+      'excerpt': 'The Chinese Civil War was fought between forces loyal to the Kuomintang (KMT)-led government of the Republic of China, and forces loyal to the Communist Party of China (CPC). The civil war began in August 1927, with Generalissimo Chiang Kai-shek&rsquo;s Northern Expedition, and essentially ended when major hostilities ceased in 1950. It can generally be divided into two stages; the first being from 1927 to 1937, and the second being from 1946 to 1950 with the Second Sino-Japanese War separating them. The war was a major turning point in modern Chinese history, with the CPC gaining control of almost the entirety of Mainland China, establishing the People&rsquo;s Republic of China (PRC) to replace the KMT&rsquo;s Republic of China (ROC). It also caused a lasting political and military standoff between the two sides of the Taiwan Strait, with the ROC in Taiwan and the PRC in mainland China both officially claiming to be the legitimate government of all of China.'
     },
     {
       't': '00:35:75',
@@ -282,7 +270,7 @@ function getLyricData(){
       'value': 'North Korea',
       'year': '1950',
       'url': 'https://en.wikipedia.org/wiki/North_Korea',
-      'excerpt': 'North Korea , officially the Democratic People&rsquo;s Republic of Korea (DPRK About this sound listen), is a country in East Asia constituting the northern part of the Korean Peninsula. Pyongyang is the nation&rsquo;s capital and largest city. To the north and northwest the country is bordered by China and by Russia along the Amnok (known as the Yalu in China) and Tumen rivers;[13] it is bordered to the south by South Korea, with the heavily fortified Korean Demilitarized Zone (DMZ) separating the two.',
+      'excerpt': 'North Korea , officially the Democratic People&rsquo;s Republic of Korea (DPRK About this sound listen), is a country in East Asia constituting the northern part of the Korean Peninsula. Pyongyang is the nation&rsquo;s capital and largest city. To the north and northwest the country is bordered by China and by Russia along the Amnok (known as the Yalu in China) and Tumen rivers; it is bordered to the south by South Korea, with the heavily fortified Korean Demilitarized Zone (DMZ) separating the two.',
       'image': 'north_korea.png'
     },
     {
@@ -290,7 +278,7 @@ function getLyricData(){
       'value': 'South Korea',
       'year': '1950',
       'url': 'https://en.wikipedia.org/wiki/South_Korea',
-      'excerpt': 'South Korea or Korea, officially the Republic of Korea (ROK; About this sound listen), is a sovereign state in East Asia, constituting the southern part of the Korean Peninsula. Officially, its territory consists of the whole Korean Peninsula and its adjacent islands, which are largely mountainous. South Koreans lead a distinctive urban lifestyle, as half of them live in high-rises[13] concentrated in the Seoul Capital Area with 25 million residents. The capital Seoul is the world&rsquo;s sixth leading global city with the fifth largest economy and is the seventh most sustainable city in the world.',
+      'excerpt': 'South Korea or Korea, officially the Republic of Korea (ROK; About this sound listen), is a sovereign state in East Asia, constituting the southern part of the Korean Peninsula. Officially, its territory consists of the whole Korean Peninsula and its adjacent islands, which are largely mountainous. South Koreans lead a distinctive urban lifestyle, as half of them live in high-rises concentrated in the Seoul Capital Area with 25 million residents. The capital Seoul is the world&rsquo;s sixth leading global city with the fifth largest economy and is the seventh most sustainable city in the world.',
       'image': 'south_korea.png'
     },
     {
@@ -302,7 +290,7 @@ function getLyricData(){
       'image': 'marilyn_monroe.jpg'
     },
     {
-      't': '00:52:86',
+      't': '00:52:95',
       'value': 'Rosenbergs',
       'url': 'https://en.wikipedia.org/wiki/Julius_and_Ethel_Rosenberg',
       'excerpt': 'Julius and Ethel Rosenberg were United States citizens who were executed on June 19, 1953 after being convicted of committing espionage for the Soviet Union. They were accused of selling the United States&rsquo; top secret plans for building a nuclear bomb to the Soviet Union; at that time the United States was the sole country in the world with the knowledge and resources to build nuclear weapons. They also were accused of providing top-secret radar, sonar, and jet propulsion engines to the Soviet Union.',
@@ -387,7 +375,7 @@ function getLyricData(){
     },
     {
       't': '01:04:50',
-      'value': 'Santayana',
+      'value': 'Santayana Goodbye',
       'url': 'https://en.wikipedia.org/wiki/George_Santayana',
       'excerpt': 'Jorge Agustin Nicolas Ruiz de Santayana y Borras, known in English as George Santayana (December 16, 1863 - September 26, 1952), was a philosopher, essayist, poet, and novelist. Originally from Spain, Santayana was raised and educated in the United States from the age of eight and identified himself as an American, although he always kept a valid Spanish passport. He wrote in English and is generally considered an American man of letters. At the age of forty-eight, Santayana left his position at Harvard and returned to Europe permanently, never to return to the United States. His last wish was to be buried in the Spanish pantheon in Rome.',
       'image': 'santayana.jpg'
@@ -459,7 +447,7 @@ function getLyricData(){
       't': '01:27:75',
       'value': 'Toscanini',
       'url': 'https://en.wikipedia.org/wiki/Arturo_Toscanini',
-      'excerpt': 'Arturo Toscanini (March 25, 1867 - January 16, 1957) was an Italian conductor. He was one of the most acclaimed musicians of the late 19th and of the 20th century, renowned for his intensity, his perfectionism, his ear for orchestral detail and sonority, and his eidetic memory.[1] He was at various times the music director of La Scala in Milan, the Metropolitan Opera in New York, and the New York Philharmonic Orchestra. Later in his career he was appointed the first music director of the NBC Symphony Orchestra (1937-54), and this led to his becoming a household name (especially in the United States) through his radio and television broadcasts and many recordings of the operatic and symphonic repertoire.',
+      'excerpt': 'Arturo Toscanini (March 25, 1867 - January 16, 1957) was an Italian conductor. He was one of the most acclaimed musicians of the late 19th and of the 20th century, renowned for his intensity, his perfectionism, his ear for orchestral detail and sonority, and his eidetic memory. He was at various times the music director of La Scala in Milan, the Metropolitan Opera in New York, and the New York Philharmonic Orchestra. Later in his career he was appointed the first music director of the NBC Symphony Orchestra (1937-54), and this led to his becoming a household name (especially in the United States) through his radio and television broadcasts and many recordings of the operatic and symphonic repertoire.',
       'image': 'toscanini.jpg'
     },
     {
@@ -505,7 +493,7 @@ function getLyricData(){
       'image': 'brooklyns_got_a_winning_team.png'
     },
     {
-      't': '01:35:71',
+      't': '01:35:95',
       'value': 'Davy Crockett',
       'url': 'https://en.wikipedia.org/wiki/Davy_Crockett_(nuclear_device)',
       'excerpt': 'The M-28 or M-29 Davy Crockett Weapon System was the tactical nuclear recoilless gun (smoothbore) for firing the M-388 nuclear projectile that was deployed by the United States during the Cold War. It was one of the smallest nuclear weapon systems ever built, with a yield between 10 and 20 tons TNT equivalent (40-80 Gigajoules). It is named after American soldier, congressman, and American folk hero Davy Crockett.',
@@ -554,7 +542,7 @@ function getLyricData(){
       'image': 'alabama.jpg'
     },
     {
-      't': '01:41:56',
+      't': '01:41:85',
       'value': 'Khrushchev',
       'url': 'https://en.wikipedia.org/wiki/Nikita_Khrushchev',
       'excerpt': 'Nikita Sergeyevich Khrushchev[a](15 April 1894 - 11 September 1971) was a politician who led the Soviet Union during part of the Cold War. He served as First Secretary of the Communist Party of the Soviet Union from 1953 to 1964, and as Chairman of the Council of Ministers, or Premier, from 1958 to 1964. Khrushchev was responsible for the de-Stalinization of the Soviet Union, for backing the progress of the early Soviet space program, and for several relatively liberal reforms in areas of domestic policy. Khrushchev&rsquo;s party colleagues removed him from power in 1964, replacing him with Leonid Brezhnev as First Secretary and Alexei Kosygin as Premier.',
@@ -564,7 +552,7 @@ function getLyricData(){
       't': '01:42:32',
       'value': 'Princess Grace',
       'url': 'https://en.wikipedia.org/wiki/Grace_Kelly',
-      'excerpt': 'Grace Patricia Kelly (November 12, 1929 - September 14, 1982) was an American actress who became Princess of Monaco after marrying Prince Rainier III, in April 1956. After embarking on an acting career in 1950, at age 20, Kelly appeared in New York City theatrical productions and more than 40 episodes of live drama productions broadcast during the early 1950s Golden Age of Television. In October 1953, she gained stardom from her performance in the film Mogambo, which won her a Golden Globe Award and an Academy Award nomination in 1954. Subsequently, she had leading roles in five films, including The Country Girl (1954), for which her deglamorized performance earned her an Academy Award for Best Actress.[1] Other films include High Noon (1952) with Gary Cooper, Dial M for Murder (1954) with Ray Milland, Rear Window (1954) with James Stewart, To Catch a Thief (1955) with Cary Grant, and High Society (1956) with Frank Sinatra and Bing Crosby. Kelly retired from acting at the age of 26 to marry Rainier and began her duties as Princess of Monaco. They had three children: Caroline, Albert II, and Stéphanie. Kelly retained her American roots, maintaining dual U.S. and Monégasque citizenship. She died on September 14, 1982, a day after suffering a stroke while driving her car, which caused a crash.',
+      'excerpt': 'Grace Patricia Kelly (November 12, 1929 - September 14, 1982) was an American actress who became Princess of Monaco after marrying Prince Rainier III, in April 1956. After embarking on an acting career in 1950, at age 20, Kelly appeared in New York City theatrical productions and more than 40 episodes of live drama productions broadcast during the early 1950s Golden Age of Television. In October 1953, she gained stardom from her performance in the film Mogambo, which won her a Golden Globe Award and an Academy Award nomination in 1954. Subsequently, she had leading roles in five films, including The Country Girl (1954), for which her deglamorized performance earned her an Academy Award for Best Actress. Other films include High Noon (1952) with Gary Cooper, Dial M for Murder (1954) with Ray Milland, Rear Window (1954) with James Stewart, To Catch a Thief (1955) with Cary Grant, and High Society (1956) with Frank Sinatra and Bing Crosby. Kelly retired from acting at the age of 26 to marry Rainier and began her duties as Princess of Monaco. They had three children: Caroline, Albert II, and Stéphanie. Kelly retained her American roots, maintaining dual U.S. and Monégasque citizenship. She died on September 14, 1982, a day after suffering a stroke while driving her car, which caused a crash.',
       'image': 'princess_grace.jpg'
     },
     {
@@ -578,7 +566,7 @@ function getLyricData(){
       't': '01:44:39',
       'value': 'Trouble in the Suez',
       'url': 'https://en.wikipedia.org/wiki/Suez_Crisis',
-      'excerpt': 'The Suez Crisis, also named the Tripartite Aggression (in the Arab world) and Operation Kadesh or Sinai War (in Israel), was an invasion of Egypt in late 1956 by Israel, followed by the United Kingdom and France. The aims were to regain Western control of the Suez Canal and to remove Egyptian President Gamal Abdel Nasser from power. After the fighting had started, political pressure from the United States, the Soviet Union, and the United Nations led to a withdrawal by the three invaders. The episode humiliated Great Britain and France[18] and strengthened Nasser.',
+      'excerpt': 'The Suez Crisis, also named the Tripartite Aggression (in the Arab world) and Operation Kadesh or Sinai War (in Israel), was an invasion of Egypt in late 1956 by Israel, followed by the United Kingdom and France. The aims were to regain Western control of the Suez Canal and to remove Egyptian President Gamal Abdel Nasser from power. After the fighting had started, political pressure from the United States, the Soviet Union, and the United Nations led to a withdrawal by the three invaders. The episode humiliated Great Britain and France and strengthened Nasser.',
       'image': 'trouble_in_the_suez.jpg'
     },
     {
@@ -653,9 +641,9 @@ function getLyricData(){
     },
     {
       't': '02:08:81',
-      'value': 'Starkweather homicides',
+      'value': 'Starkweather homicide',
       'url': 'https://en.wikipedia.org/wiki/Charles_Starkweather',
-      'excerpt': 'Charles Raymond "Charlie" Starkweather (November 24, 1938 - June 25, 1959)[1] was an American teenaged spree killer who murdered eleven people in the states of Nebraska and Wyoming in a two-month murder spree between December 1957 and January 1958. All but one of Starkweather&rsquo;s victims were killed between January 21 and January 29, 1958, the date of his arrest. During the murders committed in 1958, Starkweather was accompanied by his 14-year-old girlfriend, Caril Ann Fugate. Starkweather was executed 17 months after the events, and Fugate served 17 years in prison before her release in 1976. The Starkweather-Fugate spree has inspired several films, including The Sadist (1963), Badlands (1973), Kalifornia (1993), and Natural Born Killers (1994). Starkweather&rsquo;s electrocution in 1959 was the last execution in Nebraska until 1994.',
+      'excerpt': 'Charles Raymond "Charlie" Starkweather (November 24, 1938 - June 25, 1959) was an American teenaged spree killer who murdered eleven people in the states of Nebraska and Wyoming in a two-month murder spree between December 1957 and January 1958. All but one of Starkweather&rsquo;s victims were killed between January 21 and January 29, 1958, the date of his arrest. During the murders committed in 1958, Starkweather was accompanied by his 14-year-old girlfriend, Caril Ann Fugate. Starkweather was executed 17 months after the events, and Fugate served 17 years in prison before her release in 1976. The Starkweather-Fugate spree has inspired several films, including The Sadist (1963), Badlands (1973), Kalifornia (1993), and Natural Born Killers (1994). Starkweather&rsquo;s electrocution in 1959 was the last execution in Nebraska until 1994.',
       'image': 'starkweather_homicides.jpg'
     },
     {
@@ -711,7 +699,7 @@ function getLyricData(){
       't': '02:20:75',
       'value': 'Edsel is a no-go',
       'url': 'https://en.wikipedia.org/wiki/Edsel',
-      'excerpt': 'The Edsel was an automobile marque that was planned, developed, and manufactured by the Ford Motor Company for model years 1958-1960. With the Edsel, Ford had expected to make significant inroads into the market share of both General Motors and Chrysler and close the gap between itself and GM in the domestic American automotive market. Ford invested heavily in a yearlong teaser campaign leading consumers to believe that the Edsel was the car of the future – an expectation it failed to meet. After it was unveiled to the public, it was considered to be unattractive, overpriced, and overhyped. The Edsel never gained popularity with contemporary American car buyers and sold poorly. The Ford Motor Company lost $250 million on the Edsel&rsquo;s development, manufacturing, and marketing. The very name "Edsel" became a popular symbol for a commercial failure.',
+      'excerpt': 'The Edsel was an automobile marque that was planned, developed, and manufactured by the Ford Motor Company for model years 1958-1960. With the Edsel, Ford had expected to make significant inroads into the market share of both General Motors and Chrysler and close the gap between itself and GM in the domestic American automotive market. Ford invested heavily in a yearlong teaser campaign leading consumers to believe that the Edsel was the car of the future - an expectation it failed to meet. After it was unveiled to the public, it was considered to be unattractive, overpriced, and overhyped. The Edsel never gained popularity with contemporary American car buyers and sold poorly. The Ford Motor Company lost $250 million on the Edsel&rsquo;s development, manufacturing, and marketing. The very name "Edsel" became a popular symbol for a commercial failure.',
       'image': 'edsel_is_a_no-go.jpg'
     },
     {
@@ -739,14 +727,14 @@ function getLyricData(){
       't': '02:24:63',
       'value': 'Kennedy',
       'url': 'https://en.wikipedia.org/wiki/John_F._Kennedy',
-      'excerpt': 'John Fitzgerald "Jack" Kennedy (May 29, 1917 - November 22, 1963), commonly referred to by his initials JFK, was an American politician who served as the 35th President of the United States from January 1961 until his assassination in November 1963. Kennedy served at the height of the Cold War, and much of his presidency focused on managing relations with the Soviet Union. He was a member of the Democratic Party who represented Massachusetts in the United States House of Representatives and the United States Senate prior to becoming president. Kennedy&rsquo;s time in office was marked by high tensions with Communist states in the Cold War. He increased the number of American military advisers in South Vietnam by a factor of 18 over President Dwight D. Eisenhower. In April 1961, he authorized a failed joint-CIA attempt to overthrow the Cuban government of Fidel Castro in the Bay of Pigs Invasion.[2] He subsequently rejected plans by the Joint Chiefs of Staff to orchestrate false-flag attacks on American soil in order to gain public approval for a war against Cuba. In October 1962, U.S. spy planes discovered that Soviet missile bases had been deployed in Cuba; the resulting period of tensions, termed the Cuban Missile Crisis, nearly resulted in the breakout of a global thermonuclear conflict. Domestically, Kennedy presided over the establishment of the Peace Corps and supported the Civil Rights Movement, but he was largely unsuccessful in passing his New Frontier domestic policies. Kennedy continues to rank highly in historians&rsquo; polls of U.S. presidents and with the general public. His average approval rating of 70&perc; is the highest of any president in Gallup&rsquo;s history of systematically measuring job approval.',
+      'excerpt': 'John Fitzgerald "Jack" Kennedy (May 29, 1917 - November 22, 1963), commonly referred to by his initials JFK, was an American politician who served as the 35th President of the United States from January 1961 until his assassination in November 1963. Kennedy served at the height of the Cold War, and much of his presidency focused on managing relations with the Soviet Union. He was a member of the Democratic Party who represented Massachusetts in the United States House of Representatives and the United States Senate prior to becoming president. Kennedy&rsquo;s time in office was marked by high tensions with Communist states in the Cold War. He increased the number of American military advisers in South Vietnam by a factor of 18 over President Dwight D. Eisenhower. In April 1961, he authorized a failed joint-CIA attempt to overthrow the Cuban government of Fidel Castro in the Bay of Pigs Invasion. He subsequently rejected plans by the Joint Chiefs of Staff to orchestrate false-flag attacks on American soil in order to gain public approval for a war against Cuba. In October 1962, U.S. spy planes discovered that Soviet missile bases had been deployed in Cuba; the resulting period of tensions, termed the Cuban Missile Crisis, nearly resulted in the breakout of a global thermonuclear conflict. Domestically, Kennedy presided over the establishment of the Peace Corps and supported the Civil Rights Movement, but he was largely unsuccessful in passing his New Frontier domestic policies. Kennedy continues to rank highly in historians&rsquo; polls of U.S. presidents and with the general public. His average approval rating of 70&perc; is the highest of any president in Gallup&rsquo;s history of systematically measuring job approval.',
       'image': 'kennedy.jpg'
     },
     {
       't': '02:25:42',
       'value': 'Chubby Checker',
       'url': 'https://en.wikipedia.org/wiki/Chubby_Checker',
-      'excerpt': 'Chubby Checker (born Ernest Evans; October 3, 1941) is an American singer. He is widely known for popularizing the twist dance style, with his 1960 hit cover of Hank Ballard&rsquo;s R&B hit "The Twist". In September 2008 "The Twist" topped Billboard&rsquo;s list of the most popular singles to have appeared in the Hot 100 since its debut in 1958, an honor it maintained for an August 2013 update of the list.[1] He also popularized the Limbo Rock and its trademark limbo dance, as well as various dance styles such as the fly. Checker is the only recording artist to place five albums in the Top 12 all at once.',
+      'excerpt': 'Chubby Checker (born Ernest Evans; October 3, 1941) is an American singer. He is widely known for popularizing the twist dance style, with his 1960 hit cover of Hank Ballard&rsquo;s R&B hit "The Twist". In September 2008 "The Twist" topped Billboard&rsquo;s list of the most popular singles to have appeared in the Hot 100 since its debut in 1958, an honor it maintained for an August 2013 update of the list. He also popularized the Limbo Rock and its trademark limbo dance, as well as various dance styles such as the fly. Checker is the only recording artist to place five albums in the Top 12 all at once.',
       'image': 'chubby_checker.jpg'
     },
     {
@@ -795,7 +783,7 @@ function getLyricData(){
       't': '02:46:15',
       'value': 'Berlin',
       'url': 'https://en.wikipedia.org/wiki/Berlin_Wall',
-      'excerpt': 'The Berlin Wall was a guarded concrete barrier that physically and ideologically divided Berlin from 1961 to 1989. Constructed by the German Democratic Republic (GDR, East Germany), starting on 13 August 1961, the Wall completely cut off (by land) West Berlin from surrounding East Germany and from East Berlin until government officials opened it in November 1989. Its demolition officially began on 13 June 1990 and was completed in 1992. The barrier included guard towers placed along large concrete walls,[4] which circumscribed a wide area (later known as the "death strip") that contained anti-vehicle trenches, "fakir beds" and other defenses. The Eastern Bloc claimed that the Wall was erected to protect its population from fascist elements conspiring to prevent the "will of the people" in building a socialist state in East Germany. In practice, the Wall served to prevent the massive emigration and defection that had marked East Germany and the communist Eastern Bloc during the post-World War II period.',
+      'excerpt': 'The Berlin Wall was a guarded concrete barrier that physically and ideologically divided Berlin from 1961 to 1989. Constructed by the German Democratic Republic (GDR, East Germany), starting on 13 August 1961, the Wall completely cut off (by land) West Berlin from surrounding East Germany and from East Berlin until government officials opened it in November 1989. Its demolition officially began on 13 June 1990 and was completed in 1992. The barrier included guard towers placed along large concrete walls, which circumscribed a wide area (later known as the "death strip") that contained anti-vehicle trenches, "fakir beds" and other defenses. The Eastern Bloc claimed that the Wall was erected to protect its population from fascist elements conspiring to prevent the "will of the people" in building a socialist state in East Germany. In practice, the Wall served to prevent the massive emigration and defection that had marked East Germany and the communist Eastern Bloc during the post-World War II period.',
       'image': 'berlin.jpg'
     },
     {
@@ -823,14 +811,14 @@ function getLyricData(){
       't': '02:51:98',
       'value': 'Ole Miss',
       'url': 'https://en.wikipedia.org/wiki/Ole_Miss_riot_of_1962',
-      'excerpt': 'The Ole Miss riot of 1962, or Battle of Oxford, was fought between Southern segregationist civilians and federal and state forces beginning the night of September 30, 1962; segregationists were protesting the enrollment of James Meredith, a black US military veteran, at the University of Mississippi (known affectionately as Ole Miss) at Oxford, Mississippi. Two civilians were killed during the night, including a French journalist, and over 300 people were injured,[1] including one third of the US Marshals deployed.',
+      'excerpt': 'The Ole Miss riot of 1962, or Battle of Oxford, was fought between Southern segregationist civilians and federal and state forces beginning the night of September 30, 1962; segregationists were protesting the enrollment of James Meredith, a black US military veteran, at the University of Mississippi (known affectionately as Ole Miss) at Oxford, Mississippi. Two civilians were killed during the night, including a French journalist, and over 300 people were injured, including one third of the US Marshals deployed.',
       'image': 'ole_miss.jpg'
     },
     {
       't': '02:52:77',
       'value': 'John Glenn',
       'url': 'https://en.wikipedia.org/wiki/John_Glenn',
-      'excerpt': 'John Herschel Glenn Jr. (July 18, 1921 – December 8, 2016) was a United States Marine Corps aviator, engineer, astronaut, and United States Senator from Ohio. In 1962 he was the first American to orbit the Earth, circling it three times. Before joining NASA, Glenn was a distinguished fighter pilot in World War II and Korea with six Distinguished Flying Crosses and eighteen clusters on his Air Medal. He was one of the Mercury Seven, military test pilots selected in 1959 by NASA as the United States&rsquo; first astronauts. On February 20, 1962, Glenn flew the Friendship 7 mission; the first American to orbit the Earth, he was the fifth person in space. He received the NASA Distinguished Service Medal, the Congressional Space Medal of Honor in 1978, was inducted into the U.S. Astronaut Hall of Fame in 1990, and was the last surviving member of the Mercury Seven.',
+      'excerpt': 'John Herschel Glenn Jr. (July 18, 1921 - December 8, 2016) was a United States Marine Corps aviator, engineer, astronaut, and United States Senator from Ohio. In 1962 he was the first American to orbit the Earth, circling it three times. Before joining NASA, Glenn was a distinguished fighter pilot in World War II and Korea with six Distinguished Flying Crosses and eighteen clusters on his Air Medal. He was one of the Mercury Seven, military test pilots selected in 1959 by NASA as the United States&rsquo; first astronauts. On February 20, 1962, Glenn flew the Friendship 7 mission; the first American to orbit the Earth, he was the fifth person in space. He received the NASA Distinguished Service Medal, the Congressional Space Medal of Honor in 1978, was inducted into the U.S. Astronaut Hall of Fame in 1990, and was the last surviving member of the Mercury Seven.',
       'image': 'john_glenn.jpg'
     },
     {
@@ -844,14 +832,14 @@ function getLyricData(){
       't': '02:55:80',
       'value': 'Pope Paul',
       'url': 'https://en.wikipedia.org/wiki/Pope_Paul_VI',
-      'excerpt': 'Pope Paul VI (born Giovanni Battista Enrico Antonio Maria Montini, 26 September 1897 – 6 August 1978), reigned as Pope from 21 June 1963 to his death in 1978. Succeeding Pope John XXIII, he continued the Second Vatican Council which he closed in 1965, implementing its numerous reforms, and fostered improved ecumenical relations with Eastern Orthodox and Protestants, which resulted in many historic meetings and agreements. Montini served in the Vatican&rsquo;s Secretariat of State from 1922 to 1954. While in the Secretariat of State, Montini and Domenico Tardini were considered as the closest and most influential colleagues of Pope Pius XII, who in 1954 named him Archbishop of Milan, the largest Italian diocese. Montini later became the Secretary of the Italian Bishops Conference. John XXIII elevated him to the College of Cardinals in 1958, and after the death of John XXIII, Montini was considered one of his most likely successors',
+      'excerpt': 'Pope Paul VI (born Giovanni Battista Enrico Antonio Maria Montini, 26 September 1897 - 6 August 1978), reigned as Pope from 21 June 1963 to his death in 1978. Succeeding Pope John XXIII, he continued the Second Vatican Council which he closed in 1965, implementing its numerous reforms, and fostered improved ecumenical relations with Eastern Orthodox and Protestants, which resulted in many historic meetings and agreements. Montini served in the Vatican&rsquo;s Secretariat of State from 1922 to 1954. While in the Secretariat of State, Montini and Domenico Tardini were considered as the closest and most influential colleagues of Pope Pius XII, who in 1954 named him Archbishop of Milan, the largest Italian diocese. Montini later became the Secretary of the Italian Bishops Conference. John XXIII elevated him to the College of Cardinals in 1958, and after the death of John XXIII, Montini was considered one of his most likely successors',
       'image': 'pope_paul.jpg'
     },
     {
       't': '02:56:65',
       'value': 'Malcolm X',
       'url': 'https://en.wikipedia.org/wiki/Malcolm_X',
-      'excerpt': 'Malcolm X (May 19, 1925 – February 21, 1965), born Malcolm Little and later also known as el-Hajj Malik el-Shabazz, was an African-American Muslim minister and human rights activist. To his admirers he was a courageous advocate for the rights of blacks, a man who indicted white America in the harshest terms for its crimes against black Americans; detractors accused him of preaching racism and violence. He has been called one of the greatest and most influential African Americans in history. By March 1964, Malcolm X had grown disillusioned with the Nation of Islam and its leader Elijah Muhammad. Expressing many regrets about his time with them, which he had come to regard as largely wasted, he embraced Sunni Islam. After a period of travel in Africa and the Middle East, which included completing the Hajj, he repudiated the Nation of Islam, disavowed racism and founded Muslim Mosque, Inc. and the Organization of Afro-American Unity. He continued to emphasize Pan-Africanism, black self-determination, and black self-defense. In February 1965, he was assassinated by three members of the Nation of Islam.',
+      'excerpt': 'Malcolm X (May 19, 1925 - February 21, 1965), born Malcolm Little and later also known as el-Hajj Malik el-Shabazz, was an African-American Muslim minister and human rights activist. To his admirers he was a courageous advocate for the rights of blacks, a man who indicted white America in the harshest terms for its crimes against black Americans; detractors accused him of preaching racism and violence. He has been called one of the greatest and most influential African Americans in history. By March 1964, Malcolm X had grown disillusioned with the Nation of Islam and its leader Elijah Muhammad. Expressing many regrets about his time with them, which he had come to regard as largely wasted, he embraced Sunni Islam. After a period of travel in Africa and the Middle East, which included completing the Hajj, he repudiated the Nation of Islam, disavowed racism and founded Muslim Mosque, Inc. and the Organization of Afro-American Unity. He continued to emphasize Pan-Africanism, black self-determination, and black self-defense. In February 1965, he was assassinated by three members of the Nation of Islam.',
       'image': 'malcolm_x.jpg'
     },
     {
@@ -879,7 +867,7 @@ function getLyricData(){
       't': '03:16:10',
       'value': 'Ho Chi Minh',
       'url': 'https://en.wikipedia.org/wiki/Ho_Chi_Minh',
-      'excerpt': 'Ho Chi Minh (19 May 1890 – 2 September 1969), born Nguyễn Sinh Cung, was a Vietnamese Communist revolutionary leader who was Chairman and First secretary of the Workers&rsquo; Party of Vietnam. Hồ was also prime minister (1945–55) and president (1945–69) of the Democratic Republic of Vietnam (North Vietnam). He was a key figure in the foundation of the Democratic Republic of Vietnam in 1945, as well as the People&rsquo;s Army of Vietnam (PAVN) and the Viet Cong (NLF or VC) during the Vietnam War. He led the Viet Minh independence movement from 1941 onward, establishing the Communist-ruled Democratic Republic of Vietnam in 1945 and defeating the French Union in 1954 at the battle of Dien Bien Phu. He officially stepped down from power in 1965 due to health problems, but remained a highly respected inspiration for those Vietnamese fighting for his cause—a united, communist Vietnam—until his death. After the war, Saigon, the former capital of the Republic of Vietnam, was renamed Ho Chi Minh City.',
+      'excerpt': 'Ho Chi Minh (19 May 1890 - 2 September 1969), born Nguyễn Sinh Cung, was a Vietnamese Communist revolutionary leader who was Chairman and First secretary of the Workers&rsquo; Party of Vietnam. Hồ was also prime minister (1945–55) and president (1945–69) of the Democratic Republic of Vietnam (North Vietnam). He was a key figure in the foundation of the Democratic Republic of Vietnam in 1945, as well as the People&rsquo;s Army of Vietnam (PAVN) and the Viet Cong (NLF or VC) during the Vietnam War. He led the Viet Minh independence movement from 1941 onward, establishing the Communist-ruled Democratic Republic of Vietnam in 1945 and defeating the French Union in 1954 at the battle of Dien Bien Phu. He officially stepped down from power in 1965 due to health problems, but remained a highly respected inspiration for those Vietnamese fighting for his cause—a united, communist Vietnam—until his death. After the war, Saigon, the former capital of the Republic of Vietnam, was renamed Ho Chi Minh City.',
       'image': 'ho_chi_minh.jpg'
     },
     {
@@ -921,14 +909,14 @@ function getLyricData(){
       't': '03:21:73',
       'value': 'Begin',
       'url': 'https://en.wikipedia.org/wiki/Menachem_Begin',
-      'excerpt': 'Menachem Begin (16 August 1913 – 9 March 1992) was an Israeli politician, founder of Likud and the sixth Prime Minister of Israel. Before the creation of the state of Israel, he was the leader of the Zionist militant group Irgun, the Revisionist breakaway from the larger Jewish paramilitary organization Haganah. Begin’s most significant achievement as Prime Minister was the signing of a peace treaty with Egypt in 1979, for which he and Anwar Sadat shared the Nobel Prize for Peace.',
+      'excerpt': 'Menachem Begin (16 August 1913 - 9 March 1992) was an Israeli politician, founder of Likud and the sixth Prime Minister of Israel. Before the creation of the state of Israel, he was the leader of the Zionist militant group Irgun, the Revisionist breakaway from the larger Jewish paramilitary organization Haganah. Begin’s most significant achievement as Prime Minister was the signing of a peace treaty with Egypt in 1979, for which he and Anwar Sadat shared the Nobel Prize for Peace.',
       'image': 'begin.JPG'
     },
     {
       't': '03:22:24',
       'value': 'Reagan',
       'url': 'https://en.wikipedia.org/wiki/Ronald_Reagan',
-      'excerpt': 'Ronald Wilson Reagan (February 6, 1911 – June 5, 2004) was an American politician and actor who served as the 40th President of the United States from 1981 to 1989. Before his presidency, he was the 33rd Governor of California, from 1967 to 1975, after a career as a Hollywood actor and union leader. Leaving office in 1989, Reagan held an approval rating of sixty-eight percent, matching those of Franklin D. Roosevelt, and later Bill Clinton, as the highest ratings for departing presidents in the modern era. He was the first president since Dwight D. Eisenhower to serve two full terms, after a succession of five prior presidents failed to do so. Although he had planned an active post-presidency, in 1994 Reagan disclosed his diagnosis with Alzheimer&rsquo;s disease earlier that year, appearing publicly for the last time at the funeral of Richard Nixon. He died ten years later in 2004 at the age of 93. Reagan had the second-longest life out of all the presidents; the current longest lifespan of a president is held by Gerald Ford, who died two years after Reagan. An icon among Republicans, he is viewed favorably in historian rankings of U.S. presidents, and his tenure constituted a realignment toward conservative policies in the U.S.',
+      'excerpt': 'Ronald Wilson Reagan (February 6, 1911 - June 5, 2004) was an American politician and actor who served as the 40th President of the United States from 1981 to 1989. Before his presidency, he was the 33rd Governor of California, from 1967 to 1975, after a career as a Hollywood actor and union leader. Leaving office in 1989, Reagan held an approval rating of sixty-eight percent, matching those of Franklin D. Roosevelt, and later Bill Clinton, as the highest ratings for departing presidents in the modern era. He was the first president since Dwight D. Eisenhower to serve two full terms, after a succession of five prior presidents failed to do so. Although he had planned an active post-presidency, in 1994 Reagan disclosed his diagnosis with Alzheimer&rsquo;s disease earlier that year, appearing publicly for the last time at the funeral of Richard Nixon. He died ten years later in 2004 at the age of 93. Reagan had the second-longest life out of all the presidents; the current longest lifespan of a president is held by Gerald Ford, who died two years after Reagan. An icon among Republicans, he is viewed favorably in historian rankings of U.S. presidents, and his tenure constituted a realignment toward conservative policies in the U.S.',
       'image': 'reagan.jpg'
     },
     {
@@ -949,7 +937,7 @@ function getLyricData(){
       't': '03:25:53',
       'value': 'Ayatollah&rsquo;s in Iran',
       'url': 'https://en.wikipedia.org/wiki/Ruhollah_Khomeini',
-      'excerpt': 'Sayyid Ruhollah Mūsavi Khomeini (24 September 1902 – 3 June 1989), known in the Western world as Ayatollah Khomeini, was an Iranian Shia Muslim religious leader, philosopher revolutionary, and politician. He was the founder of the Islamic Republic of Iran and the leader of the 1979 Iranian Revolution that saw the overthrow of the Pahlavi monarchy and Mohammad Reza Pahlavi, the last Shah of Iran. Following the revolution, Khomeini became the country&rsquo;s Supreme Leader, a position created in the constitution of the Islamic Republic as the highest-ranking political and religious authority of the nation, which he held until his death. He was succeeded by Ali Khamenei on 4 June 1989.',
+      'excerpt': 'Sayyid Ruhollah Mūsavi Khomeini (24 September 1902 - 3 June 1989), known in the Western world as Ayatollah Khomeini, was an Iranian Shia Muslim religious leader, philosopher revolutionary, and politician. He was the founder of the Islamic Republic of Iran and the leader of the 1979 Iranian Revolution that saw the overthrow of the Pahlavi monarchy and Mohammad Reza Pahlavi, the last Shah of Iran. Following the revolution, Khomeini became the country&rsquo;s Supreme Leader, a position created in the constitution of the Islamic Republic as the highest-ranking political and religious authority of the nation, which he held until his death. He was succeeded by Ali Khamenei on 4 June 1989.',
       'image': 'ruhollah_khomeini.jpg'
     },
     {
@@ -970,14 +958,14 @@ function getLyricData(){
       't': '03:29:50',
       'value': 'Sally Ride',
       'url': 'https://en.wikipedia.org/wiki/Sally_Ride',
-      'excerpt': 'Sally Kristen Ride (May 26, 1951 – July 23, 2012) was an American physicist and astronaut. Born in Los Angeles, she joined NASA in 1978 and became the first American woman in space in 1983. Ride was the third woman in space overall, after USSR cosmonauts Valentina Tereshkova (1963) and Svetlana Savitskaya (1982). Ride remains the youngest American astronaut to have traveled to space, having done so at the age of 32.[1][2] After flying twice on the Orbiter Challenger, she left NASA in 1987. She worked for two years at Stanford University&rsquo;s Center for International Security and Arms Control, then at the University of California, San Diego as a professor of physics, primarily researching nonlinear optics and Thomson scattering. She served on the committees that investigated the Challenger and Columbia space shuttle disasters, the only person to participate in both. Ride died of pancreatic cancer on July 23, 2012.',
+      'excerpt': 'Sally Kristen Ride (May 26, 1951 - July 23, 2012) was an American physicist and astronaut. Born in Los Angeles, she joined NASA in 1978 and became the first American woman in space in 1983. Ride was the third woman in space overall, after USSR cosmonauts Valentina Tereshkova (1963) and Svetlana Savitskaya (1982). Ride remains the youngest American astronaut to have traveled to space, having done so at the age of 32. After flying twice on the Orbiter Challenger, she left NASA in 1987. She worked for two years at Stanford University&rsquo;s Center for International Security and Arms Control, then at the University of California, San Diego as a professor of physics, primarily researching nonlinear optics and Thomson scattering. She served on the committees that investigated the Challenger and Columbia space shuttle disasters, the only person to participate in both. Ride died of pancreatic cancer on July 23, 2012.',
       'image': 'sally_ride.jpg'
     },
     {
       't': '03:29:96',
       'value': 'Heavy Metal Suicide',
       'url': 'https://en.wikipedia.org/wiki/Heavy_metal_music',
-      'excerpt': 'Heavy metal is a genre of rock music[1] that developed in the late 1960s and early 1970s, largely in the United Kingdom and the United States. With roots in blues rock and psychedelic/acid rock, the bands that created heavy metal developed a thick, massive sound, characterized by highly amplified distortion, extended guitar solos, emphatic beats, and overall loudness. Heavy metal lyrics and performance styles are sometimes associated with aggression and machismo. In 1968, the first heavy metal bands such as Led Zeppelin, Black Sabbath and Deep Purple attracted large audiences, though they were often derided by critics. During the mid-1970s, Judas Priest helped spur the genre&rsquo;s evolution by discarding much of its blues influence; Motorhead introduced a punk rock sensibility and an increasing emphasis on speed. Beginning in the late 1970s, bands in the new wave of British heavy metal such as Iron Maiden and Saxon followed in a similar vein. Before the end of the decade, heavy metal fans became known as "metalheads" or "headbangers". Although the general public has held a stereotype of heavy metal fans being suicidal, depressed and a danger to themselves and society in general. However, Adrian North, a Heriot-Watt University professor who studies genre listeners found that metal listeners were above all else creative, at ease with themselves and introverted — qualities he also found in classical music listeners.',
+      'excerpt': 'Heavy metal is a genre of rock music that developed in the late 1960s and early 1970s, largely in the United Kingdom and the United States. With roots in blues rock and psychedelic/acid rock, the bands that created heavy metal developed a thick, massive sound, characterized by highly amplified distortion, extended guitar solos, emphatic beats, and overall loudness. Heavy metal lyrics and performance styles are sometimes associated with aggression and machismo. In 1968, the first heavy metal bands such as Led Zeppelin, Black Sabbath and Deep Purple attracted large audiences, though they were often derided by critics. During the mid-1970s, Judas Priest helped spur the genre&rsquo;s evolution by discarding much of its blues influence; Motorhead introduced a punk rock sensibility and an increasing emphasis on speed. Beginning in the late 1970s, bands in the new wave of British heavy metal such as Iron Maiden and Saxon followed in a similar vein. Before the end of the decade, heavy metal fans became known as "metalheads" or "headbangers". Although the general public has held a stereotype of heavy metal fans being suicidal, depressed and a danger to themselves and society in general. However, Adrian North, a Heriot-Watt University professor who studies genre listeners found that metal listeners were above all else creative, at ease with themselves and introverted — qualities he also found in classical music listeners.',
       'image': 'heavy_metal.jpg'
     },
     {
