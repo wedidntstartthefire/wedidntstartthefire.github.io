@@ -1,6 +1,3 @@
-/**
-*
-*/
 $( document ).ready( function() {
 
   var vid = document.getElementById( 'bgvid' );
@@ -77,7 +74,7 @@ $( document ).ready( function() {
   } );
 
   // cheat for dev
-  sound.seek( 33 );
+  // sound.seek( 33 );
 
   $playBtn.on( 'click', function( e ){
     if( !sound.playing() ){
@@ -372,7 +369,7 @@ function getLyricData(){
       'value': 'England&rsquo;s got a new queen',
       'url': 'https://en.wikipedia.org/wiki/Elizabeth_II',
       'excerpt': 'Elizabeth II (Elizabeth Alexandra Mary; born 21 April 1926) has been Queen of the United Kingdom, Canada, Australia, and New Zealand since 6 February 1952. She is Head of the Commonwealth and Queen of 12 countries that have become independent since her accession: Jamaica, Barbados, the Bahamas, Grenada, Papua New Guinea, Solomon Islands, Tuvalu, Saint Lucia, Saint Vincent and the Grenadines, Belize, Antigua and Barbuda, and Saint Kitts and Nevis.',
-      'image': 'englands_got_a_new_queen.jpg'
+      'image': 'englands_got_a_new_queen.JPG'
     },
     {
       't': '01:03:10',
@@ -911,7 +908,7 @@ function getLyricData(){
       'value': 'Watergate',
       'url': 'https://en.wikipedia.org/wiki/Watergate_scandal',
       'excerpt': 'Watergate was a major political scandal that occurred in the United States in the 1970s, following a break-in at the Democratic National Committee (DNC) headquarters at the Watergate office complex in Washington, D.C. on June 17, 1972 and President Richard Nixon&rsquo;s administration&rsquo;s attempted cover-up of its involvement. When the conspiracy was discovered and investigated by the U.S. Congress, the Nixon administration&rsquo;s resistance to its probes led to a constitutional crisis.',
-      'image': 'watergate.jpg'
+      'image': 'watergate.JPG'
     },
     {
       't': '03:20:92',
@@ -925,7 +922,7 @@ function getLyricData(){
       'value': 'Begin',
       'url': 'https://en.wikipedia.org/wiki/Menachem_Begin',
       'excerpt': 'Menachem Begin (16 August 1913 – 9 March 1992) was an Israeli politician, founder of Likud and the sixth Prime Minister of Israel. Before the creation of the state of Israel, he was the leader of the Zionist militant group Irgun, the Revisionist breakaway from the larger Jewish paramilitary organization Haganah. Begin’s most significant achievement as Prime Minister was the signing of a peace treaty with Egypt in 1979, for which he and Anwar Sadat shared the Nobel Prize for Peace.',
-      'image': 'begin.jpg'
+      'image': 'begin.JPG'
     },
     {
       't': '03:22:24',
