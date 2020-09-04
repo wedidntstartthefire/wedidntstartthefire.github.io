@@ -40,7 +40,7 @@
     "grunt-serve": "^0.1.6",
     "moment": "^2.6.0",
     "ncp": "^1.0.1",
-    "node-sass": "^3.3.3",
+    "node-sass": "^4.14.1",
     "path": "^0.4.9",
     "pygmentize-bundled": "^2.1.1"
   }
